@@ -3,7 +3,7 @@ from app import cos, client
 from cloudant.query import Query
 
 
-def predict_pipeline(data, model_info_db_name='models-db'):
+def predict_pipeline(data, model_info_db_name='database-hem'):
 
     """
         Función para gestionar el pipeline completo de inferencia
@@ -39,7 +39,7 @@ def predict_pipeline(data, model_info_db_name='models-db'):
     return model.predict(data_df).tolist()
 
 
-def load_model(name, bucket_name='models-uem'):
+def load_model(name, bucket_name='cos-uem-hem'):
     """
          Función para cargar el modelo en IBM COS
 
@@ -84,5 +84,5 @@ def load_model_config(db_name):
             dict. Documento con la configuración del modelo.
     """
     db = client.get_database(db_name)
-    query = Query(db, selector={'_id': {'$eq': 'model_config'}})
+    query = Query(db, selector={'_id': {'$eq': 'model-hem'}})
     return query()['docs'][0]
